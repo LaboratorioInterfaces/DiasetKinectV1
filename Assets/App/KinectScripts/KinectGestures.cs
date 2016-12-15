@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class KinectGestures
 {
+	//Send data to webservice
+	public PostJsonData postJson;
 
 	public interface GestureListenerInterface
 	{

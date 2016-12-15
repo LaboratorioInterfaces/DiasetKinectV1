@@ -8,12 +8,20 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 	void Start () {
 		Debug.Log ("Start....");
 	}
+	// Used to display current time on screen.
+	public CurrentTime currentTime;
+
+	//Send data to webservice
+	public PostJsonData postJson;
 
 	// GUI Text to display the gesture messages.
 	public GUIText GestureInfo;
 	
 	// private bool to track if progress message has been displayed
 	private bool progressDisplayed;
+
+	// GUI TExt to display position messages.
+	public GUIText positionText;
 	
 	
 	public void UserDetected(uint userId, int userIndex)
@@ -88,14 +96,26 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 		*/
 		GestureInfo.GetComponent<GUIText> ().text = gesture + "";
 
+		string current_user = Session_app.current_user;
+		string current_machine = Session_app.current_machine;
+		string timeString = currentTime.time.ToString("yyyy-MM-dd HH-mm-ss");;
+
 		if(gesture==KinectGestures.Gestures.Squat){
-			//save at database
+			//save to database
 			Debug.Log("Squat to database");
+
+			// Send User event data to Database
+			postJson.PostData (004, current_user, timeString, current_machine);
 		}
 
 		if(gesture==KinectGestures.Gestures.Jump){
-			//save at database
+			//save to database
 			Debug.Log("Jump to database");
+
+			//Send User event data to Database
+			postJson.PostData (004, current_user, timeString, current_machine);
+			Session_app.incorrectPositions++;
+			//positionText.GetComponent<GUIText> ().text =  Session_app.incorrectPositions +" Incorrect Positions";
 		}
 		
 		progressDisplayed = false;

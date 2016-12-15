@@ -104,6 +104,9 @@ public class KinectManager : MonoBehaviour
 	// GUI Text to show current Time.
 	public GUIText timeText;
 
+	// GUI Text to show incorrect positions
+	public GUIText positionText;
+
 	// String of current Time.
 	public String timeString;
 		
@@ -1114,6 +1117,7 @@ public class KinectManager : MonoBehaviour
 			CalibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
 			userText.GetComponent<GUIText> ().text = "user---";
 			machineText.GetComponent<GUIText> ().text = "machine---";
+			positionText.GetComponent<GUIText>().text = Session_app.incorrectPositions + " Incorrect Positions";
 			//timeText.GetComponent<GUIText>().text = currentTime.time.ToString("hh:mm:ss");
 
 		}
@@ -1129,6 +1133,8 @@ public class KinectManager : MonoBehaviour
 		// converts current time to string.
 		timeString = currentTime.time.ToString("yyyy-MM-dd HH-mm-ss");
 
+
+		positionText.GetComponent<GUIText> ().text = Session_app.incorrectPositions.ToString() + " Incorrect Positions";
 
 		// Update Clock on screen.
 		timeText.GetComponent<GUIText> ().text = currentTime.time.ToString("yyyy-MM-dd HH:mm:ss");
@@ -1338,7 +1344,7 @@ public class KinectManager : MonoBehaviour
 		// Kill the program with ESC.
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			Application.Quit();
+			//Application.Quit();
 		}
 	}
 	
